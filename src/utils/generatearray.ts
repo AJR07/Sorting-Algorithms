@@ -1,16 +1,16 @@
 import Element from "../types/element";
+import shuffleArray from "./shufflearray";
 
-export default function generateRandomArray(
-    min: number,
-    max: number,
-    size: number
-) {
-    const randomArray = [];
+export default function generateArray(min: number, max: number, size: number) {
+    let arr: Element[] = [];
     for (let i = 0; i < size; i++) {
-        randomArray.push({
-            value: Math.floor(Math.random() * (max - min + 1)) + min,
+        arr.push({
+            value: min + ((max - min) / size) * i,
             selected: false,
-        } as Element);
+        });
     }
-    return randomArray;
+
+    arr = shuffleArray(arr);
+
+    return arr;
 }
