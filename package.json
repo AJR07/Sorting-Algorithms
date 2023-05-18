@@ -1,5 +1,5 @@
 {
-    "name": "word-cloud",
+    "name": "sorting",
     "private": true,
     "version": "0.0.0",
     "scripts": {
@@ -10,6 +10,10 @@
         "prepare": "husky install"
     },
     "dependencies": {
+        "@emotion/react": "^11.11.0",
+        "@emotion/styled": "^11.11.0",
+        "@mui/icons-material": "^5.11.16",
+        "@mui/material": "^5.13.1",
         "react": "^17.0.2",
         "react-dom": "^17.0.2"
     },
