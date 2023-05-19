@@ -1,5 +1,5 @@
 import { Button, Stack } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PlayCircleIcon from "@mui/icons-material/PlayCircle";
 import StopCircleIcon from "@mui/icons-material/StopCircle";
 import generateArray from "./utils/generatearray";
@@ -8,6 +8,8 @@ import { Component } from "./types/sortingcomponent";
 import BubbleSort from "./sorting/bubble";
 import CountSort from "./sorting/count";
 import SelectionSort from "./sorting/selection";
+import { ReactMarkdown } from "react-markdown/lib/react-markdown";
+import ArrowDropDownCircleIcon from "@mui/icons-material/ArrowDropDownCircle";
 
 const SortingAlgorithms: {
     name: string;
@@ -32,7 +34,6 @@ export default function WordCloud() {
     let [arr, setArr] = useState<Element[]>(
         generateArray(SortingAlgorithms[0].elements)
     );
-
     const largestValue = Math.max(...arr.map((value) => value.value));
     const isSorted = arr.every((value, index) => {
         if (index === 0) return true;
@@ -40,10 +41,51 @@ export default function WordCloud() {
     });
     const SortingComponent = SortingAlgorithms[chosenSortingAlgo].component;
 
+    const [githubMarkdown, setGithubMarkdown] = useState<string>("");
+    const [showing, setShowing] = useState<boolean>(false);
+    useEffect(() => {
+        fetch(
+            "https://raw.githubusercontent.com/AJR07/Sorting-Algorithms/main/README.md",
+            {
+                method: "GET",
+            }
+        )
+            // convert the response to text, and set the state
+            .then((res) => res.text())
+            .then((text) => setGithubMarkdown(text));
+    }, []);
+
     return (
         <div>
             <h1 className="center">Sorting Visualiser</h1>
             <h3 className="center">by AJR07</h3>
+            <Stack
+                style={{
+                    backgroundColor: "#0e2547",
+                    borderRadius: "2vw",
+                    padding: "2vw",
+                }}
+            >
+                <Stack
+                    direction="row"
+                    style={{
+                        display: "flex",
+                        alignItems: "center",
+                        cursor: "pointer",
+                    }}
+                    onClick={() => setShowing(!showing)}
+                    spacing={1}
+                >
+                    <ArrowDropDownCircleIcon
+                        style={{ rotate: showing ? "0deg" : "270deg" }}
+                    />
+                    <h3>Project Details</h3>
+                </Stack>
+                <div hidden={!showing}>
+                    <ReactMarkdown>{githubMarkdown}</ReactMarkdown>
+                </div>
+            </Stack>
+
             <SortingComponent
                 arr={arr}
                 setArr={setArr}
