@@ -1,11 +1,11 @@
 import Element from "../types/element";
 import shuffleArray from "./shufflearray";
 
-export default function generateArray(min: number, max: number, size: number) {
+export default function generateArray(size: number) {
     let arr: Element[] = [];
     for (let i = 0; i < size; i++) {
         arr.push({
-            value: min + ((max - min) / size) * i,
+            value: i,
             selected: false,
         });
     }

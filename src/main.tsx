@@ -7,21 +7,32 @@ import Element from "./types/element";
 import { Component } from "./types/sortingcomponent";
 import BubbleSort from "./sorting/bubble";
 import CountSort from "./sorting/count";
+import SelectionSort from "./sorting/selection";
 
 const SortingAlgorithms: {
     name: string;
     speed: number;
+    elements: number;
     component: Component;
 }[] = [
-    { name: "bubble sort", speed: 500, component: BubbleSort },
-    { name: "count sort", speed: 10, component: CountSort },
+    { name: "bubble sort", speed: 500, elements: 1000, component: BubbleSort },
+    { name: "count sort", speed: 100, elements: 7500, component: CountSort },
+    {
+        name: "selection sort",
+        speed: 350,
+        elements: 1000,
+        component: SelectionSort,
+    },
 ];
 
 export default function WordCloud() {
     let [frames, setFrames] = useState<number>(0);
     let [intervalID, setIntervalID] = useState<number | null>(null);
-    let [arr, setArr] = useState<Element[]>(generateArray(0, 10000, 1000));
     let [chosenSortingAlgo, setChosenSortingAlgo] = useState<number>(0);
+    let [arr, setArr] = useState<Element[]>(
+        generateArray(SortingAlgorithms[0].elements)
+    );
+
     const largestValue = Math.max(...arr.map((value) => value.value));
     const isSorted = arr.every((value, index) => {
         if (index === 0) return true;
@@ -43,21 +54,35 @@ export default function WordCloud() {
             />
 
             <Stack>
-                <p style={{ marginLeft: "1%" }}>Frame Number: {frames}</p>
+                <Stack style={{ marginLeft: "1%" }}>
+                    <p>
+                        <b>Frame Number:</b> {frames}
+                        <br />
+                        <b>Speed:</b>{" "}
+                        {SortingAlgorithms[chosenSortingAlgo].speed} Frames Per
+                        Second
+                        <br />
+                        <b>Elements in Array:</b>{" "}
+                        {SortingAlgorithms[chosenSortingAlgo].elements}
+                    </p>
+                </Stack>
 
-                <Stack direction="row">
+                <Stack
+                    direction="row"
+                    style={{ display: "flex", justifyContent: "center" }}
+                >
                     {arr.map((value, index) => {
                         return (
                             <div
                                 key={index}
                                 style={{
                                     marginTop: `${
-                                        (value.value / largestValue) * 80
-                                    }vh`,
-                                    height: `${
                                         ((largestValue - value.value) /
                                             largestValue) *
                                         80
+                                    }vh`,
+                                    height: `${
+                                        (value.value / largestValue) * 80
                                     }vh`,
                                     width: `${100 / arr.length}%`,
                                     backgroundColor: value.selected
@@ -88,7 +113,10 @@ export default function WordCloud() {
                                     onClick={() => {
                                         if (chosenSortingAlgo !== index)
                                             setArr(
-                                                generateArray(0, 10000, 1000)
+                                                generateArray(
+                                                    SortingAlgorithms[index]
+                                                        .elements
+                                                )
                                             );
                                         setChosenSortingAlgo(index);
                                         restart(
@@ -154,7 +182,12 @@ export default function WordCloud() {
                         color="warning"
                         disabled={intervalID !== null}
                         onClick={() => {
-                            setArr(generateArray(0, 10000, 1000));
+                            setArr(
+                                generateArray(
+                                    SortingAlgorithms[chosenSortingAlgo]
+                                        .elements
+                                )
+                            );
                             restart(setFrames, intervalID, setIntervalID);
                         }}
                     >
