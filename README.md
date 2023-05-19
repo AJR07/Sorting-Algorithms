@@ -11,7 +11,7 @@ Those sorting visualisations in the form of a video that you see online are pre-
 -   Sure I could have optimised things a bit more maybe,
 -   But still...
 
-## **Project Discription**
+## **Project Description**
 
 This is a small project I've made to visualise different sorting algorithms. I will have to add, heavy inspiration has been taken from [Youtube Videos](https://youtu.be/mPZhnGWgL0s) where many sorting algorithms have been visualised in a similar format. However, I haven't seen many websites try to replicate this, i mean sure there's [VisualAlgo](https://visualgo.net/en/sorting), but I don't think you can visualise it at a large scale. Anyways, this was a good opportunity to do a project on this topic too. There was some key learning points actually, as seen [here](#learning-points).
 
