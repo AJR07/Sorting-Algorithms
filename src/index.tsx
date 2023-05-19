@@ -1,13 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import WordCloud from "./main";
+import SortingVisualiser from "./main";
 
 // root of the app
 // renders the entire app in the div with id "root"
 ReactDOM.render(
     <React.StrictMode>
-        <WordCloud />
+        <SortingVisualiser />
     </React.StrictMode>,
     document.getElementById("root")
 );
