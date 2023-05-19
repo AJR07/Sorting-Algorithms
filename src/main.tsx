@@ -86,7 +86,10 @@ export default function WordCloud() {
                                             : "primary"
                                     }
                                     onClick={() => {
-                                        setArr(generateArray(0, 10000, 1000));
+                                        if (chosenSortingAlgo !== index)
+                                            setArr(
+                                                generateArray(0, 10000, 1000)
+                                            );
                                         setChosenSortingAlgo(index);
                                         restart(
                                             setFrames,

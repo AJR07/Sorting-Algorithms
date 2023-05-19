@@ -19,6 +19,7 @@ let BubbleSort: Component = ({
             setI(0);
             setJ(0);
             setPrevFrame(0);
+            return;
         }
 
         let tempArr = [...arr],
